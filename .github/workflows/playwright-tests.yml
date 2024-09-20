@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest  # You can use GitHub's hosted runners
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-focal  # Playwright Docker image
+      image: mcr.microsoft.com/playwright:v1.44.1-focal  #Playwright Docker image
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
