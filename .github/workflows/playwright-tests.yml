@@ -1,0 +1,25 @@
+name: Playwright Scheduled Tests
+
+# Schedule: Every day at 5 AM UTC
+on:
+    workflow_dispatch:  # Enables manual trigger in GitHub Actions
+    schedule:
+    - cron: '0 5 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # You can use GitHub's hosted runners
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-focal  # Playwright Docker image
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 3: Run Playwright tests
+      - name: Run Playwright tests
+        run: npx playwright test
