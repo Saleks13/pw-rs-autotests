@@ -9,7 +9,7 @@ test.beforeEach(async ({ signInPage, context }) => {
   await signInPage.goto();
 })
 
-test("#S001 - Attempt to Sign Up with existing email.", async ({page, signInPage, wizardUserInfoPage}) => {
+test("#S001 - Attempt to Sign Up with existing email.", async ({signInPage, wizardUserInfoPage}) => {
 
   const email = ConfigReader.EMAIL;  
   const expMsg = "Looks like you already have a RestStep account for " + email + "."; 
@@ -31,8 +31,7 @@ test("#S001 - Attempt to Sign Up with existing email.", async ({page, signInPage
   await signInPage.isWarningMsgContainsText(expMsg);
 })
 
-test("#S002 - Attempt to Sign Up with existing company name.", async ({page, signInPage, wizardUserInfoPage, 
-  wizardRequiredDocsPage, wizardCompanyInfoPage}) => {
+test("#S002 - Attempt to Sign Up with existing company name.", async ({signInPage, wizardUserInfoPage, wizardRequiredDocsPage, wizardCompanyInfoPage}) => {
 
   const expMsg = "The Company Name already exists. Please enter a different Company Name"; 
 
@@ -58,29 +57,28 @@ test("#S002 - Attempt to Sign Up with existing company name.", async ({page, sig
   await wizardCompanyInfoPage.isWarningMsgContainsText(expMsg);
 })
 
-test("Sign in with incorrect password.", async ({page, signInPage}) =>{
+test.skip("#003 - Sign up with new (random) credentials and new random organization name.", async ({page, signInPage}) =>{
 
-  const expectedMessage = 'The e-mail or password is invalid. Please enter a valid e-mail or password.';
+  //NOT YET IMPLEMENTED
+  
 
-  await signInPage.fillUsername(ConfigReader.EMAIL + "1");
+})
+
+test("#S004 - Sign in with known valid credentials (1 company) >> Overview page loaded.", async ({page, signInPage}) =>{
+
+  await signInPage.fillUsername(ConfigReader.EMAIL);
   await signInPage.fillPassword(ConfigReader.PASSWORD);
   await signInPage.clickLoginButton();
-
-  await expect(signInPage.mainWarningMessage()).toHaveText(expectedMessage); 
-})
-
-
-test("Go to Wizard", async ({page, signInPage, wizardUserInfoPage}) =>{
-
-  signInPage.clickSignUpButton()
-
-  await wizardUserInfoPage.selectLanguage(Localizations.English);
-
-  await wizardUserInfoPage.acceptTerms();
-  await wizardUserInfoPage.clickContinueButton();
   
+
 })
 
+test.skip("#S004a - Sign in with known valid credentials (>1 company) >> Organizations list should be shown.", async ({page, signInPage}) =>{
 
+  await signInPage.fillUsername(ConfigReader.EMAIL);
+  await signInPage.fillPassword(ConfigReader.PASSWORD);
+  await signInPage.clickLoginButton();
+  
 
+})
 

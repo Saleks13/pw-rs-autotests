@@ -1,15 +1,19 @@
 import { expect, Page } from "@playwright/test";
 import { ConfigReader } from "../../config-reader/config.reader";
+import { FooterPage } from "../page components/footer.component";
 
 
 export default class SignInPage 
 {
     page: Page;
+    footer: FooterPage;
     private configReader: ConfigReader;
+
 
     constructor(page: Page) {
         this.page = page;
         this.configReader = ConfigReader.getEnvVars();
+        this.footer = new FooterPage(page);
     }
 
     public async goto()
