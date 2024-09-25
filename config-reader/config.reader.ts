@@ -3,6 +3,8 @@ import config from '../env.config.json';
 
 type ConfigVars = DeepReadonly<typeof config>;
 type Environment = keyof typeof config;
+type User = keyof ConfigVars['test']['USERS']; // This assumes the same user structure for all environments
+
 
 export class ConfigReader {
   private static readonly _envVars: ConfigVars = config;
@@ -19,12 +21,12 @@ export class ConfigReader {
     return ConfigReader.getEnvVars().APP_URL;
   }
 
-  static get EMAIL(): string {
-    return ConfigReader.getEnvVars().EMAIL;
+  static getEmail(user: User): string {
+    return ConfigReader.getEnvVars().USERS[user].EMAIL;
   }
 
-  static get PASSWORD(): string {
-    return ConfigReader.getEnvVars().PASSWORD;
+  static getPassword(user: User): string {
+    return ConfigReader.getEnvVars().USERS[user].PASSWORD;
   }
 
   static get COMPANYPREFIX(): string {

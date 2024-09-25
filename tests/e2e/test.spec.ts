@@ -11,7 +11,7 @@ test.beforeEach(async ({ signInPage, context }) => {
 
 test("#S001 - Attempt to Sign Up with existing email.", async ({signInPage, wizardUserInfoPage}) => {
 
-  const email = ConfigReader.EMAIL;  
+  const email = ConfigReader.getEmail("USERSINGLEORG");  
   const expMsg = "Looks like you already have a RestStep account for " + email + "."; 
 
   //click sign up button to start the wizard
@@ -66,19 +66,17 @@ test.skip("#003 - Sign up with new (random) credentials and new random organizat
 
 test("#S004 - Sign in with known valid credentials (1 company) >> Overview page loaded.", async ({page, signInPage}) =>{
 
-  await signInPage.fillUsername(ConfigReader.EMAIL);
-  await signInPage.fillPassword(ConfigReader.PASSWORD);
+  await signInPage.fillUsername(ConfigReader.getEmail('USERSINGLEORG'));
+  await signInPage.fillPassword(ConfigReader.getPassword("USERSINGLEORG"));
   await signInPage.clickLoginButton();
-  
 
 })
 
 test.skip("#S004a - Sign in with known valid credentials (>1 company) >> Organizations list should be shown.", async ({page, signInPage}) =>{
 
-  await signInPage.fillUsername(ConfigReader.EMAIL);
-  await signInPage.fillPassword(ConfigReader.PASSWORD);
+  await signInPage.fillUsername(ConfigReader.getEmail('USERSINGLEORG'));
+  await signInPage.fillPassword(ConfigReader.getPassword("USERSINGLEORG"));
   await signInPage.clickLoginButton();
   
-
 })
 
