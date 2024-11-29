@@ -1,5 +1,4 @@
 import { expect, Page } from "@playwright/test";
-import { ConfigReader } from "../../config-reader/config.reader";
 import { FooterPage } from "../page components/footer.component";
 
 
@@ -7,18 +6,16 @@ export default class SignInPage
 {
     page: Page;
     footer: FooterPage;
-    private configReader: ConfigReader;
 
 
     constructor(page: Page) {
         this.page = page;
-        this.configReader = ConfigReader.getEnvVars();
         this.footer = new FooterPage(page);
     }
 
     public async goto()
     {
-        await this.page.goto(ConfigReader.APP_URL);
+        await this.page.goto("/");
     }
 
     // Locators 
@@ -33,13 +30,12 @@ export default class SignInPage
     forgotPasswordLink = () => this.page.locator('#reset');
     signUpLink = () => this.page.locator('#alCreateWP');
 
-    mainWarningMessage = () => this.page.locator("div.login_main span");
-    
+    mainWarningMessage = () => this.page.locator("div.login_main span");   
 
 
     // Actions 
 
-    // Usarname field
+    // Username field
     public async fillUsername(username: string) {
         await this.usernameInputField().fill(username);
     }

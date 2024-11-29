@@ -9,11 +9,12 @@
   "description": "",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.44.1",
-    "@types/node": "^20.14.2"
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^20.17.6"
   },
   "dependencies": {
     "builder-pattern": "^2.2.0",
-    "ts-essentials": "^9.3.1" 
+    "dotenv": "^16.4.5",
+    "ts-essentials": "^9.3.1"
   }
 }

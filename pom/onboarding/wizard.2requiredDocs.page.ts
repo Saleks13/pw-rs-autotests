@@ -1,6 +1,6 @@
 import { expect, Page } from "@playwright/test";
 
-export default class WizardRequiredDocsPage 
+export default class Wizard2RequiredDocsPage 
 {
     page: Page;
 
@@ -13,7 +13,6 @@ export default class WizardRequiredDocsPage
 
     cancelButton = () => this.page.locator('.prev.btnmargin');
     continueButton = () => this.page.locator('.continue');
-
 
 
     // Actions 

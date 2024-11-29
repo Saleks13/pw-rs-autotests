@@ -2,8 +2,7 @@ import { Builder } from "builder-pattern";
 import { fa, faker } from '@faker-js/faker';
 import { LegalForm } from "../config-reader/legalForm";
 import { Localizations } from "../config-reader/localizations";
-import { ConfigReader } from "../config-reader/config.reader";
-
+import { TestDataLoader } from "./testDataLoader";
 
 export class SignupBuilder {
 
@@ -31,7 +30,7 @@ export class SignupBuilder {
         .lastName(faker.person.lastName())
         .emailAddress(faker.internet.email())
         .password(faker.internet.password())
-        .companyName(ConfigReader.COMPANYPREFIX + timestamp)
+        .companyName(TestDataLoader.getCompanyPrefix())
         .street(faker.location.streetAddress())
         .additionalAddress("Unit 13")
         .zipCode(faker.location.zipCode())

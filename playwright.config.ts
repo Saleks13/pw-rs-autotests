@@ -1,10 +1,16 @@
 import { defineConfig, devices } from '@playwright/test';
+import { ENV } from './envLoader';
+import * as fs from 'fs';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
+// Determine the environment (default option set)
+//const ENV = process.env.ENV || 'prod';
+
+// Load the appropriate .env file
 // require('dotenv').config();
+// dotenv.config({ path: `.env.${ENV}` });
+
+// Load test data
+const testData = JSON.parse(fs.readFileSync('testData/testData.json', 'utf-8'))[ENV];
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -14,11 +20,11 @@ export default defineConfig({
   /* Default timeout value */
   timeout: 30 * 1000,
   /* Run tests in files in parallel */
-  fullyParallel: false,
+  fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 0 : 0,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -26,7 +32,10 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    //baseURL: 'https://apps.marka-software.company/',
+    baseURL: testData.BASE_URL,
+    extraHTTPHeaders: {
+      'X-Env': ENV,
+    },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -37,7 +46,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
+    // },
 
     // {
     //   name: 'firefox',
@@ -47,7 +56,7 @@ export default defineConfig({
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
-    // },
+    },
 
     /* Test against mobile viewports. */
     // {

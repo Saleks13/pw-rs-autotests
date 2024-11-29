@@ -1,6 +1,7 @@
 import { expect, Page } from "@playwright/test";
+import { LegalForm } from "../../config-reader/legalForm";
 
-export default class WizardCompanyInfoPage 
+export default class Wizard3CompanyInfoPage 
 {
     page: Page;
 
@@ -43,8 +44,13 @@ export default class WizardCompanyInfoPage
     }
 
     //Legal form
-    public async selectLefalForm(option: string) {
+    public async selectLefalForm(option: LegalForm) {
         await this.legalFormDropdown().selectOption(option);
+    }
+
+    //Legal form
+    public async fillCity(city: string) {
+        await this.cityField().fill(city);
     }
 
     //Secondary address
@@ -53,7 +59,7 @@ export default class WizardCompanyInfoPage
     }
 
     //telephone
-    public async fillPhone(phone: string) {
+    public async fillTelephone(phone: string) {
         await this.phoneField().fill(phone);
     }
 

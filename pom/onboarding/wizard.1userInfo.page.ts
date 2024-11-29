@@ -2,16 +2,14 @@ import { expect, Page } from "@playwright/test";
 import { Localizations } from "../../config-reader/localizations";
 
 
-export default class WizardUserInfoPage 
-{
+export default class Wizard1UserInfoPage {
     page: Page;
 
     constructor(page: Page) {
         this.page = page;
     }
 
-    public async goto()
-    {
+    public async goto() {
         await this.page.goto("/Registrierung/UserInfo")
     }
 
@@ -29,7 +27,7 @@ export default class WizardUserInfoPage
     cancelButton = () => this.page.locator('input[class*="cancelIco"]');
     continueButton = () => this.page.locator('#bContinue');
 
-    usernameWarningMsg = () => this.page.getByText('E-Mail is required.');    
+    usernameWarningMsg = () => this.page.getByText('E-Mail is required.');
 
 
     // Actions 
@@ -40,18 +38,39 @@ export default class WizardUserInfoPage
     }
 
     // Lastname field
-     public async fillLastname(lastname: string) {
+    public async fillLastname(lastname: string) {
         await this.lastnameInputField().fill(lastname);
     }
     // Email field
-     public async fillEmail(email: string) {
+    public async fillEmail(email: string) {
         await this.emailInputField().fill(email);
     }
 
     // Language selector
-    public async selectLanguage(language: Localizations) {
-        await this.languageSelector().selectOption(language);
+    public async selectLanguage() {
+        const locale = process.env.LOCALE;
+        console.log("LOCALE = " + locale);
+        if (!locale) {
+            throw new Error(`Locale is not defined in the environment variables.`);
+        }
+
+        // Map the locale to the corresponding value in the Localizations enum
+        let languageOption: Localizations;
+
+        switch (locale.toUpperCase()) {
+            case 'EN':
+                languageOption = Localizations.EN;
+                break;
+            case 'DE':
+                languageOption = Localizations.DE;
+                break;
+            default:
+                throw new Error(`Invalid locale provided: ${locale}. Supported values are 'EN' or 'DE'.`);
+        }
+
+        await this.languageSelector().selectOption(languageOption);
     }
+
 
     // Passwords 
     public async fillPassword(password: string) {

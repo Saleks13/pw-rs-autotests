@@ -1,0 +1,47 @@
+{
+    "test": {
+      "COMPANYPREFIX": "@satest-",
+      "BASE_URL": "https://apps.marka-software.company/",
+      "EXISTINGCOMPANY": "@sergtest05092024",
+      "STREETADDRESS": "Bahnhofstrasse 123",
+      "ZIPCODE": "9008",
+      "CITY": "Bern",
+      "SECONDARYADDRESS": "Unit 123",
+      "TELEPHONE": "888 888 88 88",
+      "VALID": {
+        "FIRSTNAME": "ValidName",
+        "LASTNAME": "ValidLastName",
+        "EMAIL": "Valid.email@example.com",
+        "PASSWORD": "123456Ab!"          
+        },
+      "INVALID": {
+        "FIRSTNAME": "InvalidName123",
+        "LASTNAME": "InvalidLastName!@#",
+        "EMAIL": "invalid.email@example",
+        "PASSWORD": "123"          
+        }      
+    },
+    "prod": {
+      "COMPANYPREFIX": "@saprod-",
+      "BASE_URL": "https://app.reststep.ch/",
+      "EXISTINGCOMPANY": "@sergprod09102024 ",
+      "STREETADDRESS": "Bahnhofstrasse 123",
+      "ZIPCODE": "9008",
+      "CITY": "Bern",
+      "SECONDARYADDRESS": "Unit 123",
+      "TELEPHONE": "888 888 88 88",
+      "VALID": {
+        "FIRSTNAME": "ValidName",
+        "LASTNAME": "ValidLastName",
+        "EMAIL": "Valid.email@example.com",
+        "PASSWORD": "123456Ab!"          
+        },
+      "INVALID": {
+        "FIRSTNAME": "InvalidName123",
+        "LASTNAME": "InvalidLastName!@#",
+        "EMAIL": "invalid.email@example",
+        "PASSWORD": "123"          
+        }  
+    }
+  }
+  
