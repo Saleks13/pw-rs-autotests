@@ -1,25 +1,45 @@
-name: Playwright Scheduled Tests
+name: Daily Playwright Tests
 
-# Schedule: Every day at 5 AM UTC
 on:
-    workflow_dispatch:  # Enables manual trigger in GitHub Actions
-    schedule:
+  schedule:
     - cron: '0 5 * * *'
+  workflow_dispatch:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # You can use GitHub's hosted runners
-    container:
-      image: mcr.microsoft.com/playwright:v1.44.1-focal  #Playwright Docker image
+    runs-on: ubuntu-latest
+
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
       - name: Install dependencies
         run: npm install
 
-      # Step 3: Run Playwright tests
+      - name: Install Playwright dependencies
+        run: npx playwright install-deps
+
+      # Set environment variables from secrets
+      - name: Set environment variables
+        env:
+          USERS_USERSINGLEORG_EMAIL: ${{ secrets.USERS_USERSINGLEORG_EMAIL }}
+          USERS_USERSINGLEORG_PASSWORD: ${{ secrets.USERS_USERSINGLEORG_PASSWORD }}
+          USERS_USERMULTIORG_EMAIL: ${{ secrets.USERS_USERMULTIORG_EMAIL }}
+          USERS_USERMULTIORG_PASSWORD: ${{ secrets.USERS_USERMULTIORG_PASSWORD }}
+          LOCALE: ${{ secrets.LOCALE }}
+        run: echo "Environment variables set."
+
+      # Run Playwright tests
       - name: Run Playwright tests
+        env:
+          USERS_USERSINGLEORG_EMAIL: ${{ secrets.USERS_USERSINGLEORG_EMAIL }}
+          USERS_USERSINGLEORG_PASSWORD: ${{ secrets.USERS_USERSINGLEORG_PASSWORD }}
+          USERS_USERMULTIORG_EMAIL: ${{ secrets.USERS_USERMULTIORG_EMAIL }}
+          USERS_USERMULTIORG_PASSWORD: ${{ secrets.USERS_USERMULTIORG_PASSWORD }}
+          LOCALE: ${{ secrets.LOCALE }}
         run: npx playwright test
