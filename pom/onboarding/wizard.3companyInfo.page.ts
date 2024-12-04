@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { LegalForm } from "../../config-reader/legalForm";
+import { LegalForm } from "../../testData/legalForm";
 
 export default class Wizard3CompanyInfoPage 
 {

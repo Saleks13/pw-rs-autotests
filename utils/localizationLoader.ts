@@ -1,15 +1,22 @@
-import warningMessages from '../testData/warningMessages.json'; // Adjust the path as needed
+// warningMessagesLoader.ts
+import enMessages from '../localization/en.json';
+import deMessages from '../localization/de.json';
 
-export class WarningMessagesLoader {
-  private static getMessages(lang: keyof typeof warningMessages) {
-    const messages = warningMessages[lang];
+export class LocalizationLoader {
+  private static messages: Record<string, Record<string, string>> = {
+    EN: enMessages,
+    DE: deMessages,
+  };
+
+  private static getMessages(lang: keyof typeof LocalizationLoader.messages) {
+    const messages = LocalizationLoader.messages[lang];
     if (!messages) {
       throw new Error(`Warning messages for language "${lang}" are not defined.`);
     }
     return messages;
   }
 
-  private static determineLanguage(): keyof typeof warningMessages {
+  private static determineLanguage(): keyof typeof LocalizationLoader.messages {
     const locale = process.env.LOCALE || 'EN';
 
     if (!locale) {
@@ -18,8 +25,8 @@ export class WarningMessagesLoader {
     }
 
     const localization = locale.toUpperCase();
-    if (warningMessages.hasOwnProperty(localization)) {
-      return localization as keyof typeof warningMessages;
+    if (LocalizationLoader.messages.hasOwnProperty(localization)) {
+      return localization as keyof typeof LocalizationLoader.messages;
     } else {
       console.warn(`Invalid locale provided: ${locale}. Falling back to default language: EN`);
       return 'EN';
@@ -51,5 +58,9 @@ export class WarningMessagesLoader {
     });
 
     return message;
+  }
+
+  static getHelloText(firstName: string, lastName: string) {
+    return this.formatMessage('helloText', { firstName, lastName });
   }
 }

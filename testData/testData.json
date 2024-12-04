@@ -9,8 +9,8 @@
       "SECONDARYADDRESS": "Unit 123",
       "TELEPHONE": "888 888 88 88",
       "VALID": {
-        "FIRSTNAME": "ValidName",
-        "LASTNAME": "ValidLastName",
+        "FIRSTNAME": "John",
+        "LASTNAME": "Malkovich",
         "EMAIL": "Valid.email@example.com",
         "PASSWORD": "123456Ab!"          
         },
@@ -31,8 +31,8 @@
       "SECONDARYADDRESS": "Unit 123",
       "TELEPHONE": "888 888 88 88",
       "VALID": {
-        "FIRSTNAME": "ValidName",
-        "LASTNAME": "ValidLastName",
+        "FIRSTNAME": "Peter",
+        "LASTNAME": "Griffin",
         "EMAIL": "Valid.email@example.com",
         "PASSWORD": "123456Ab!"          
         },

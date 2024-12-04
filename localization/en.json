@@ -1,0 +1,7 @@
+{
+    "emailExists": "Looks like you already have a RestStep account for {{email}}.",
+    "invalidEmail": "The email provided is invalid.",
+    "termsNotAccepted": "You must accept the terms and conditions.",
+    "companyExists": "The Company Name already exists. Please enter a different Company Name",
+    "helloText": "Hello, {{firstName}} {{lastName}}"    
+}

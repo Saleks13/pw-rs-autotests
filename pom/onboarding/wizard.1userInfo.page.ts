@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { Localizations } from "../../config-reader/localizations";
+import { Localizations } from "../../testData/localizations";
 
 
 export default class Wizard1UserInfoPage {
@@ -56,7 +56,7 @@ export default class Wizard1UserInfoPage {
 
         // Map the locale to the corresponding value in the Localizations enum
         let languageOption: Localizations;
-
+        // Set languge option based on the locale value
         switch (locale.toUpperCase()) {
             case 'EN':
                 languageOption = Localizations.EN;
@@ -67,7 +67,6 @@ export default class Wizard1UserInfoPage {
             default:
                 throw new Error(`Invalid locale provided: ${locale}. Supported values are 'EN' or 'DE'.`);
         }
-
         await this.languageSelector().selectOption(languageOption);
     }
 

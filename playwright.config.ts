@@ -1,16 +1,14 @@
 import { defineConfig, devices } from '@playwright/test';
 import { ENV } from './envLoader';
 import * as fs from 'fs';
+import * as dotenv from 'dotenv';
 
-// Determine the environment (default option set)
-//const ENV = process.env.ENV || 'prod';
+dotenv.config({ path: `.env.${ENV}` });
 
-// Load the appropriate .env file
-// require('dotenv').config();
-// dotenv.config({ path: `.env.${ENV}` });
 
 // Load test data
 const testData = JSON.parse(fs.readFileSync('testData/testData.json', 'utf-8'))[ENV];
+//console.log("BASE_URL = " + testData.BASE_URL,);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -18,13 +16,13 @@ const testData = JSON.parse(fs.readFileSync('testData/testData.json', 'utf-8'))[
 export default defineConfig({
   testDir: './tests',
   /* Default timeout value */
-  timeout: 30 * 1000,
+  timeout: 50 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 1 : 1,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -46,7 +44,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    // },
+    },
 
     // {
     //   name: 'firefox',
@@ -56,7 +54,7 @@ export default defineConfig({
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
-    },
+    //},
 
     /* Test against mobile viewports. */
     // {

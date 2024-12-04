@@ -6,19 +6,6 @@ import { ENV } from '../envLoader';
 type Environment = 'test' | 'prod';
 type EnvData = Config[Environment];
 
-// export class TestDataLoader {
-//   private static getEnvData(): EnvData {
-//     const env = (process.env.ENV as Environment) || 'prod';
-//     if (!env) {
-//       throw new Error('Environment variable ENV is not defined.');
-//     }
-//     const data = testData[env];
-//     if (!data) {
-//       throw new Error(`Test data for environment "${env}" is not defined.`);
-//     }
-//     return data;
-//   }
-
 export class TestDataLoader {
   private static getEnvData(): EnvData {
     const data = testData[ENV];
@@ -42,7 +29,7 @@ export class TestDataLoader {
   }
 
   static getAppUrl() {
-    return this.getEnvData().BASE_URL; // Corrected to match BASE_URL in testData.json
+    return this.getEnvData().BASE_URL; 
   }
 
   static getExistingCompany() {
