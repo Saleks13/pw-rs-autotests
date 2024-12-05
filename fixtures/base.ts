@@ -54,15 +54,25 @@ export const test = base.extend<MyFixtures>({
 })
 
 test.beforeAll(async ({ baseURL }) => {
-     console.log("BASE_URL =", baseURL);
+    console.log("BASE_URL =", baseURL);
 });
 
 test.beforeEach(async ({ context }) => {
     await context.clearCookies();
 })
 
-test.afterEach(async ({ context }) => {
-    await context.close();    
+test.afterEach(async ({ page, context }, testInfo) => {
+
+    // Capture screenshot
+    const screenshotPath = `screenshots/${testInfo.title.replace(/\s+/g, '_')}.png`;
+    await page.screenshot({ path: screenshotPath });
+
+    testInfo.attach('screenshot', {
+        path: screenshotPath,
+        contentType: `image/png`,
+    })
+
+    await context.close();
 })
 
 
