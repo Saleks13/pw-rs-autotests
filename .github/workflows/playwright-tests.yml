@@ -1,6 +1,9 @@
 name: Daily Playwright Tests
 
 on:
+  push:
+    branches:
+      -main
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
