@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Install Playwright dependencies
-        run: npx playwright install-deps
+        run: npx playwright install
 
       # Set environment variables from secrets
       - name: Set environment variables
@@ -45,4 +45,4 @@ jobs:
           USERS_USERMULTIORG_EMAIL: ${{ secrets.USERS_USERMULTIORG_EMAIL }}
           USERS_USERMULTIORG_PASSWORD: ${{ secrets.USERS_USERMULTIORG_PASSWORD }}
           LOCALE: ${{ secrets.LOCALE }}
-        run: npx playwright test
+        run: ENV=test npx playwright test
