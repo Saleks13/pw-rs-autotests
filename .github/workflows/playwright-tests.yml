@@ -34,6 +34,9 @@ jobs:
           LOCALE: ${{ secrets.LOCALE }}
         run: echo "Environment variables set."
 
+      - name: Debug Environment Variables
+        run: env
+
       # Run Playwright tests
       - name: Run Playwright tests
         env:
