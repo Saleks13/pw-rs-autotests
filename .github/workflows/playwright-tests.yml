@@ -8,6 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: .env.test 
 
     steps:
       - name: Checkout code
@@ -33,9 +34,6 @@ jobs:
           USERS_USERMULTIORG_PASSWORD: ${{ secrets.USERS_USERMULTIORG_PASSWORD }}
           LOCALE: ${{ secrets.LOCALE }}
         run: echo "Environment variables set."
-
-      - name: Debug Environment Variables
-        run: env
 
       # Run Playwright tests
       - name: Run Playwright tests

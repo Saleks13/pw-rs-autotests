@@ -49,7 +49,7 @@ export default class Wizard1UserInfoPage {
     // Language selector
     public async selectLanguage() {
         const locale = process.env.LOCALE || "EN";
-        console.log("LOCALE = " + locale);
+        //console.log("LOCALE = " + locale);
         if (!locale) {
             throw new Error(`Locale is not defined in the environment variables.`);
         }
