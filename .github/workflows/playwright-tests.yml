@@ -59,3 +59,15 @@ jobs:
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./playwright-report
+      - name: Send Email with Report Link
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Playwright Test Report"
+          body: |
+      The Playwright test report is available at:
+      https://<username>.github.io/<repository>/index.html
+    to: recipient@example.com
