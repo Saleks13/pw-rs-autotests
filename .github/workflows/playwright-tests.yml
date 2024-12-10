@@ -66,8 +66,9 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASSWORD }}
+          from: ${{ secrets.EMAIL_USER }}
           subject: "Playwright Test Report"
           body: |
-      The Playwright test report is available at:
-      https://<username>.github.io/<repository>/index.html
-    to: recipient@example.com
+            The Playwright test report is available at:
+            https://saleks13.github.io/pw-rs-autotests/index.html
+          to: saleks.v@gmail.com
