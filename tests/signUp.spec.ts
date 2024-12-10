@@ -8,7 +8,20 @@ test.beforeEach(async ({ signInPage }) => {
     await signInPage.goto();
 })
 
-test("#S001 - Attempt to Sign Up with existing email.", async ({ signInPage, wizard1UserInfoPage: wizardUserInfoPage }) => {
+test("#S001 - Sign up page opened. @smoke", async ({ signInPage, wizard1UserInfoPage, page }) => {
+
+    // click sign up button to start the wizard
+    await signInPage.clickSignUpButton();
+
+    // select language
+    await wizard1UserInfoPage.selectLanguage();
+
+    // check first wizard page title shown
+    await wizard1UserInfoPage.isTitleVisible();
+
+})
+
+test("#S002 - Attempt to Sign Up with existing email.", async ({ page, signInPage, wizard1UserInfoPage }) => {
 
     // new user data
     const user = Utils.newRandomUser();
@@ -21,22 +34,22 @@ test("#S001 - Attempt to Sign Up with existing email.", async ({ signInPage, wiz
     // click sign up button to start the wizard
     await signInPage.clickSignUpButton();
     // fill in data on the first wizard page
-    await wizardUserInfoPage.fillFirstname(user.firstName);
-    await wizardUserInfoPage.fillLastname(user.lastName);
-    await wizardUserInfoPage.fillEmail(email);
-    await wizardUserInfoPage.selectLanguage();
-    await wizardUserInfoPage.fillPassword(user.password);
-    await wizardUserInfoPage.fillConfirmPassword(user.password);
-    await wizardUserInfoPage.acceptTerms();
+    await wizard1UserInfoPage.fillFirstname(user.firstName);
+    await wizard1UserInfoPage.fillLastname(user.lastName);
+    await wizard1UserInfoPage.fillEmail(email);
+    await wizard1UserInfoPage.selectLanguage();
+    await wizard1UserInfoPage.fillPassword(user.password);
+    await wizard1UserInfoPage.fillConfirmPassword(user.password);
+    await wizard1UserInfoPage.acceptTerms();
     // click continue to initizate data validation
-    await wizardUserInfoPage.clickContinueButton();
+    await wizard1UserInfoPage.clickContinueButton();
 
     // verify error message
     await signInPage.isWarningMsgContainsText(expMsg);
 
 })
 
-test("#S002 - Attempt to Sign Up with existing company name.", async ({ signInPage, wizard1UserInfoPage: wizardUserInfoPage, wizard2RequiredDocsPage: wizardRequiredDocsPage, wizard3CompanyInfoPage: wizardCompanyInfoPage }) => {
+test("#S003 - Attempt to Sign Up with existing company name.", async ({ signInPage, wizard1UserInfoPage, wizard2RequiredDocsPage, wizard3CompanyInfoPage }) => {
 
     // new user data
     const user = Utils.newRandomUser();
@@ -50,34 +63,34 @@ test("#S002 - Attempt to Sign Up with existing company name.", async ({ signInPa
     await signInPage.clickSignUpButton();
 
     // fill in data on the first wizard page
-    await wizardUserInfoPage.fillFirstname(user.firstName);
-    await wizardUserInfoPage.fillLastname(user.lastName);
-    await wizardUserInfoPage.fillEmail(user.email);
-    await wizardUserInfoPage.selectLanguage();
-    await wizardUserInfoPage.fillPassword(user.password);
-    await wizardUserInfoPage.fillConfirmPassword(user.password);
-    await wizardUserInfoPage.acceptTerms();
+    await wizard1UserInfoPage.fillFirstname(user.firstName);
+    await wizard1UserInfoPage.fillLastname(user.lastName);
+    await wizard1UserInfoPage.fillEmail(user.email);
+    await wizard1UserInfoPage.selectLanguage();
+    await wizard1UserInfoPage.fillPassword(user.password);
+    await wizard1UserInfoPage.fillConfirmPassword(user.password);
+    await wizard1UserInfoPage.acceptTerms();
 
     // click continue to initizate data validation
-    await wizardUserInfoPage.clickContinueButton();
+    await wizard1UserInfoPage.clickContinueButton();
 
     // click continue button to proceed to company info wizard step
-    await wizardRequiredDocsPage.clickContinueButton();
+    await wizard2RequiredDocsPage.clickContinueButton();
 
     // fill in required data including existing company name
-    await wizardCompanyInfoPage.fillCompanyName(existingCompanyName);
-    await wizardCompanyInfoPage.fillStreet(user.streetAddress);
-    await wizardCompanyInfoPage.fillZipCode(user.zipCode);
+    await wizard3CompanyInfoPage.fillCompanyName(existingCompanyName);
+    await wizard3CompanyInfoPage.fillStreet(user.streetAddress);
+    await wizard3CompanyInfoPage.fillZipCode(user.zipCode);
 
     // click continue button to trigger company name validation
-    await wizardCompanyInfoPage.clickContinueButton();
+    await wizard3CompanyInfoPage.clickContinueButton();
 
     // validate warning message
-    await wizardCompanyInfoPage.isWarningMsgContainsText(expMsg);
+    await wizard3CompanyInfoPage.isWarningMsgContainsText(expMsg);
 
 })
 
-test("#S003 - Sign up with new (random) credentials and new random organization name.",
+test("#S004 - Sign up with new (random) credentials and new random organization name.",
     async ({ page, wizard1UserInfoPage, wizard2RequiredDocsPage, wizard3CompanyInfoPage, wizard4FinancialInfoPage, wizard5MobilePhonePage, wizard6FinalStepPage, overviewHello }) => {
 
         // increase timeout for test - db creation causes delays

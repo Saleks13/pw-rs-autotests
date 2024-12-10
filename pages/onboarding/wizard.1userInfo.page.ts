@@ -3,6 +3,7 @@ import { Localizations } from "../../testData/localizations";
 
 
 export default class Wizard1UserInfoPage {
+
     page: Page;
 
     constructor(page: Page) {
@@ -14,6 +15,7 @@ export default class Wizard1UserInfoPage {
     }
 
     // Locators 
+    pageTitle = () => this.page.locator('#wrapper1 h1');
     firstnameInputField = () => this.page.locator('#FirstName');
     lastnameInputField = () => this.page.locator('#LastName');
     emailInputField = () => this.page.locator('#EMail');
@@ -32,7 +34,12 @@ export default class Wizard1UserInfoPage {
 
     // Actions 
 
-    // Usarname field
+    public async isTitleVisible() {
+        console.log("teeeeext", await this.pageTitle().innerText());
+        return expect(await this.pageTitle().isVisible()).toBeTruthy();
+    }
+
+    // Username field
     public async fillFirstname(username: string) {
         await this.firstnameInputField().fill(username);
     }
@@ -67,7 +74,14 @@ export default class Wizard1UserInfoPage {
             default:
                 throw new Error(`Invalid locale provided: ${locale}. Supported values are 'EN' or 'DE'.`);
         }
+        console.log("selecting language = ",languageOption);
         await this.languageSelector().selectOption(languageOption);
+        if (locale == 'EN') {
+            await expect(this.pageTitle()).toHaveText('User Information');
+        } else {
+            await expect(this.pageTitle()).toHaveText('Benutzerinfo'); 
+        }
+       
     }
 
 
