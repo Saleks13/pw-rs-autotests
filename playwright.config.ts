@@ -32,7 +32,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: testData.BASE_URL,
-    viewport: { width: 1920, height: 1080 },
+    //viewport: { width: 1920, height: 1080 },
     extraHTTPHeaders: {
       'X-Env': ENV,
     },
@@ -51,17 +51,17 @@ export default defineConfig({
       }
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'], 
-        viewport: { width: 1920, height: 1080 }
-       },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'], 
+    //     viewport: { width: 1920, height: 1080 }
+    //    },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
