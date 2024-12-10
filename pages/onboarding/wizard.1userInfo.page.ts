@@ -35,7 +35,6 @@ export default class Wizard1UserInfoPage {
     // Actions 
 
     public async isTitleVisible() {
-        console.log("teeeeext", await this.pageTitle().innerText());
         return expect(await this.pageTitle().isVisible()).toBeTruthy();
     }
 
@@ -74,7 +73,7 @@ export default class Wizard1UserInfoPage {
             default:
                 throw new Error(`Invalid locale provided: ${locale}. Supported values are 'EN' or 'DE'.`);
         }
-        console.log("selecting language = ",languageOption);
+        //console.log("selecting language = ",languageOption);
         await this.languageSelector().selectOption(languageOption);
         if (locale == 'EN') {
             await expect(this.pageTitle()).toHaveText('User Information');
