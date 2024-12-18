@@ -3,11 +3,6 @@ import { TestDataLoader } from "../../testData/testDataLoader";
 import { LocalizationLoader } from "../../utils/localizationLoader";
 import { Utils } from "../../utils/utils";
 
-
-// test.beforeEach(async ({ signInPage }) => {
-//     await signInPage.goto();
-// })
-
 test("#SU-0001 - Sign up page opened. @smoke", async ({ signInPage, wizard1UserInfoPage }) => {
 
     // go to sign in page

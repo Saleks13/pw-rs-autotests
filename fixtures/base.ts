@@ -131,11 +131,11 @@ test.afterEach(async ({ page }, testInfo) => {
     const projectName = testInfo.project.name;
 
     // Extract short identifiers (e.g., SU-0001, SI-0001)
-    const shortIdMatch = testInfo.title.match(/\b(SU-\d{4}|SI-\d{4})\b/);
-    const shortId = shortIdMatch ? shortIdMatch[0] : 'default';
+    const shortIdMatch = testInfo.title.match(/^\b([A-Z]{2}-\d{4})\b/);
+    const shortId = shortIdMatch ? shortIdMatch[1] : testInfo.title.split('(')[0].trim().replace(/[\s-]/g, '_');
 
     // Sanitize the test title and project name
-    const sanitizedProjectName = projectName.replace(/[^\w\s-]/g, '').replace(/\s+/g, '_');
+    const sanitizedProjectName = projectName.replace(/[\s-]/g, '_').replace(/[^\w]/g, '');
 
     // Construct the screenshot path
     const screenshotPath = `.screenshots/${sanitizedProjectName}_${shortId}.png`;

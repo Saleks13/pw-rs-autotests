@@ -1,9 +1,5 @@
 import { test } from "../../fixtures/base";
 
-// test.beforeEach(async ({ signInPage }) => {
-//     await signInPage.goto();
-// })
-
 test("#SI-0001 - Sign in with single organization user. @smoke", async ({ signInPage, overviewGeneral }) => {
 
     // go to sign in page
