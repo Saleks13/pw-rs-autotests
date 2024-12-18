@@ -148,7 +148,7 @@ test.afterEach(async ({ page }, testInfo) => {
         path: screenshotPath,
         contentType: `image/png`,
     })
-    console.log("SCREENSHOT - ", screenshotPath);
+    console.log(testInfo.title , " = " , screenshotPath);
 })
 
 export const expect = test.expect;
