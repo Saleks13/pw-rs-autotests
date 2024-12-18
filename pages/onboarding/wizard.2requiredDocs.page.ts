@@ -8,19 +8,15 @@ export default class Wizard2RequiredDocsPage
         this.page = page;
     }
 
-
     // Locators 
 
     cancelButton = () => this.page.locator('.prev.btnmargin');
     continueButton = () => this.page.locator('.continue');
 
-
     // Actions 
 
-    //Continue button
+    // Continue button
     public async clickContinueButton() {
         await this.continueButton().click();
     }
-
-
 }

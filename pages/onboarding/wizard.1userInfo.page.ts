@@ -1,6 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { Localizations } from "../../testData/localizations";
-
+import { Locale } from "../../testData/locale";
 
 export default class Wizard1UserInfoPage {
 
@@ -31,11 +30,10 @@ export default class Wizard1UserInfoPage {
 
     usernameWarningMsg = () => this.page.getByText('E-Mail is required.');
 
-
     // Actions 
 
-    public async isTitleVisible() {
-        return expect(await this.pageTitle().isVisible()).toBeTruthy();
+    public async assertPageTitleIsVisible() {
+        await expect(this.pageTitle()).toBeVisible();
     }
 
     // Username field
@@ -61,14 +59,14 @@ export default class Wizard1UserInfoPage {
         }
 
         // Map the locale to the corresponding value in the Localizations enum
-        let languageOption: Localizations;
+        let languageOption: Locale;
         // Set languge option based on the locale value
         switch (locale.toUpperCase()) {
             case 'EN':
-                languageOption = Localizations.EN;
+                languageOption = Locale.EN;
                 break;
             case 'DE':
-                languageOption = Localizations.DE;
+                languageOption = Locale.DE;
                 break;
             default:
                 throw new Error(`Invalid locale provided: ${locale}. Supported values are 'EN' or 'DE'.`);
@@ -83,7 +81,6 @@ export default class Wizard1UserInfoPage {
        
     }
 
-
     // Passwords 
     public async fillPassword(password: string) {
         await this.passwordInputField().fill(password);
@@ -92,13 +89,12 @@ export default class Wizard1UserInfoPage {
         await this.confirmPasswordInputField().fill(password);
     }
 
-
-    //Terms
+    // Terms
     public async acceptTerms() {
         await this.termsCheckbox().click();
     }
 
-    //Continue button
+    // Continue button
     public async clickContinueButton() {
         await this.continueButton().click();
     }

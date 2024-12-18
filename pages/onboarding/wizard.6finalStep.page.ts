@@ -7,10 +7,8 @@ export default class Wizard6FinalStepPage {
         this.page = page;
     }
 
-
     // Locators 
-    private finishButton = () => this.page.locator('.Finish');
-   
+    private finishButton = () => this.page.locator('.Finish');   
 
     // Actions 
 

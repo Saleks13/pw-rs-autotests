@@ -9,7 +9,6 @@ export default class Wizard3CompanyInfoPage
         this.page = page;
     }
 
-
     // Locators 
     companyNameField = () => this.page.locator('#CompanyName');
     streetField = () => this.page.locator('#Address');
@@ -23,8 +22,6 @@ export default class Wizard3CompanyInfoPage
 
     cancelButton = () => this.page.locator('.prev.btnmargin:first-child');
     continueButton = () => this.page.locator('.continue');
-
-
 
     // Actions 
 
@@ -69,9 +66,8 @@ export default class Wizard3CompanyInfoPage
     }
 
     //Check warning message contains text
-    public async isWarningMsgContainsText(msg: string) {
-        return expect(await this.errorField().innerText()).toContain(msg);
+    public async assertWarningMessageContainsText(expectedText: string) {
+        const actualText = await this.errorField().innerText();
+        expect(actualText).toContain(expectedText);
     }
-
-
 }

@@ -2,7 +2,7 @@
     "test": {
       "COMPANYPREFIX": "@satest-",
       "BASE_URL": "https://apps.marka-software.company/",
-      "EXISTINGCOMPANY": "@sergtest05092024",
+      "EXISTINGCOMPANY": "@satest_dont_delete",
       "STREETADDRESS": "Bahnhofstrasse 123",
       "ZIPCODE": "9008",
       "CITY": "Bern",

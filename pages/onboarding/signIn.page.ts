@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import { FooterPage } from "../page components/footer.component";
+import FooterPage from "../page components/footer.component";
 
 
 export default class SignInPage 
@@ -11,6 +11,7 @@ export default class SignInPage
     constructor(page: Page) {
         this.page = page;
         this.footer = new FooterPage(page);
+        //this.goto();
     }
 
     public async goto()
@@ -44,7 +45,7 @@ export default class SignInPage
         return this.usernameWarningMsg().innerText();
     }
 
-    //Password field
+    // Password field
     public async fillPassword(password: string) {
         await this.passwordInputField().fill(password);
     }
@@ -52,19 +53,20 @@ export default class SignInPage
         return this.passwordWarningMsg().innerText();
     }
 
-    //Login button
+    // Login button
     public async clickLoginButton() {
         await this.loginButton().click();
     }
 
-    //Sign up button/link
+    // Sign up button/link
     public async clickSignUpButton() {
         await this.signUpLink().click();   
     }
 
-    //Check warning message contains text
-    public async isWarningMsgContainsText(msg: string) {
-        return expect(await this.mainWarningMessage().innerText()).toContain(msg);
+    // Check warning message contains text
+    public async assertWarningMessageContainsText(expectedText: string) {
+        const actualText = await this.mainWarningMessage().innerText();
+        expect(actualText).toContain(expectedText);
     }
 
 }

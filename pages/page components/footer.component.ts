@@ -1,6 +1,6 @@
 import { expect, Page } from "@playwright/test";
 
-export class FooterPage {
+export default class FooterPage {
     page: Page;
 
     constructor (page: Page) {
@@ -8,10 +8,6 @@ export class FooterPage {
     }
 
     footerText = () => this.page.locator("#footer p");
-
-    get $footertext(){
-        return this.page.locator("#footer p");    
-    }
 
     //Check footer contains text
     public async isFooterContainsText(text: string) {

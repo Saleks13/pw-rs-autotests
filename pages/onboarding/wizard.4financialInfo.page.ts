@@ -48,7 +48,4 @@ export default class Wizard4FinancialInfoPage {
     public async clickContinueButton() {
         await this.continueButton().click();
     }
-
-
-
 }

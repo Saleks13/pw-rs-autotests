@@ -8,15 +8,10 @@ export default class Wizard5MobilePhonePage {
         this.page = page;
     }
 
-
     // Locators 
     phoneCodeDropdown = () => this.page.locator('#PhoneCodeId');
     phoneInput = () => this.page.locator('#Phone');
     verifyButton = () => this.page.getByRole('button');
-
-
-
-
 
     // Actions 
 
@@ -41,7 +36,4 @@ export default class Wizard5MobilePhonePage {
     public async clickVerify(){
         await this.verifyButton().click();
     }
-
-
-
 }

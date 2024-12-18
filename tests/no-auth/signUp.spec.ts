@@ -1,15 +1,17 @@
-import { test } from "../fixtures/base";
-import { TestDataLoader } from "../testData/testDataLoader";
-import { LocalizationLoader } from "../utils/localizationLoader";
-import { Utils } from "../utils/utils";
+import { test } from "../../fixtures/base";
+import { TestDataLoader } from "../../testData/testDataLoader";
+import { LocalizationLoader } from "../../utils/localizationLoader";
+import { Utils } from "../../utils/utils";
 
 
-test.beforeEach(async ({ signInPage }) => {
+// test.beforeEach(async ({ signInPage }) => {
+//     await signInPage.goto();
+// })
+
+test("#SU-0001 - Sign up page opened. @smoke", async ({ signInPage, wizard1UserInfoPage }) => {
+
+    // go to sign in page
     await signInPage.goto();
-})
-
-test("#S001 - Sign up page opened. @smoke", async ({ signInPage, wizard1UserInfoPage, page }) => {
-
     // click sign up button to start the wizard
     await signInPage.clickSignUpButton();
 
@@ -17,11 +19,11 @@ test("#S001 - Sign up page opened. @smoke", async ({ signInPage, wizard1UserInfo
     await wizard1UserInfoPage.selectLanguage();
 
     // check first wizard page title shown
-    await wizard1UserInfoPage.isTitleVisible();
+    await wizard1UserInfoPage.assertPageTitleIsVisible();
 
 })
 
-test("#S002 - Attempt to Sign Up with existing email.", async ({ page, signInPage, wizard1UserInfoPage }) => {
+test("#SU-0002 - Attempt to Sign Up with existing email.", async ({ page, signInPage, wizard1UserInfoPage }) => {
 
     // new user data
     const user = Utils.newRandomUser();
@@ -31,6 +33,8 @@ test("#S002 - Attempt to Sign Up with existing email.", async ({ page, signInPag
     // get expected warning message
     const expMsg = LocalizationLoader.formatMessage("emailExists", { email });
 
+    // go to sign in page
+    await signInPage.goto();
     // click sign up button to start the wizard
     await signInPage.clickSignUpButton();
     // fill in data on the first wizard page
@@ -45,11 +49,11 @@ test("#S002 - Attempt to Sign Up with existing email.", async ({ page, signInPag
     await wizard1UserInfoPage.clickContinueButton();
 
     // verify error message
-    await signInPage.isWarningMsgContainsText(expMsg);
+    await signInPage.assertWarningMessageContainsText(expMsg);
 
 })
 
-test("#S003 - Attempt to Sign Up with existing company name.", async ({ signInPage, wizard1UserInfoPage, wizard2RequiredDocsPage, wizard3CompanyInfoPage }) => {
+test("#SU-0003 - Attempt to Sign Up with existing company name.", async ({ signInPage, wizard1UserInfoPage, wizard2RequiredDocsPage, wizard3CompanyInfoPage }) => {
 
     // new user data
     const user = Utils.newRandomUser();
@@ -59,6 +63,8 @@ test("#S003 - Attempt to Sign Up with existing company name.", async ({ signInPa
     // get expected warning message
     const expMsg = LocalizationLoader.formatMessage("companyExists", { existingCompanyName });
 
+    // go to sign in page
+    await signInPage.goto();
     // click sign up button to start the wizard
     await signInPage.clickSignUpButton();
 
@@ -86,12 +92,12 @@ test("#S003 - Attempt to Sign Up with existing company name.", async ({ signInPa
     await wizard3CompanyInfoPage.clickContinueButton();
 
     // validate warning message
-    await wizard3CompanyInfoPage.isWarningMsgContainsText(expMsg);
+    await wizard3CompanyInfoPage.assertWarningMessageContainsText(expMsg);
 
 })
 
-test("#S004 - Sign up with new (random) credentials and new random organization name.",
-    async ({ page, wizard1UserInfoPage, wizard2RequiredDocsPage, wizard3CompanyInfoPage, wizard4FinancialInfoPage, wizard5MobilePhonePage, wizard6FinalStepPage, overviewHello }) => {
+test("#SU-0004 - Sign up with new (random) credentials and new random organization name.",
+    async ({ signInPage, wizard1UserInfoPage, wizard2RequiredDocsPage, wizard3CompanyInfoPage, wizard4FinancialInfoPage, wizard5MobilePhonePage, wizard6FinalStepPage, overviewHello }) => {
 
         // increase timeout for test - db creation causes delays
         test.setTimeout(90000);
@@ -103,8 +109,12 @@ test("#S004 - Sign up with new (random) credentials and new random organization 
         const expectedHelloMessage = LocalizationLoader.getHelloText(user.firstName, user.lastName);
         const expectedCompanyName = user.companyName;
 
-        // go to wizard first page
-        await wizard1UserInfoPage.goto();
+
+        // go to sign in page
+        await signInPage.goto();
+        // click sign up button to start the wizard
+        await signInPage.clickSignUpButton();
+        
         // fill in data on the first wizard page
         await wizard1UserInfoPage.fillFirstname(user.firstName);
         await wizard1UserInfoPage.fillLastname(user.lastName);
@@ -145,7 +155,7 @@ test("#S004 - Sign up with new (random) credentials and new random organization 
         await wizard6FinalStepPage.clickFinish();
 
         // assert value on overview page
-        await overviewHello.isHelloMessageEqual(expectedHelloMessage);
-        await overviewHello.isCompanyNameEqual(expectedCompanyName);
+        await overviewHello.assertHelloMessageEqualTo(expectedHelloMessage);
+        await overviewHello.assertCompanyNameEqualTo(expectedCompanyName);
 
     })

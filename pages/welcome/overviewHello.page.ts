@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test";
-import { FooterPage } from "../page components/footer.component";
+import FooterPage from "../page components/footer.component";
 
 export default class OverviewHello
 {
@@ -23,12 +23,14 @@ export default class OverviewHello
     // Actions
 
     // Assertions
-    public async isHelloMessageEqual(text: string) {
-        return expect(await this.helloUsername().innerText()).toEqual(text);
+    public async assertHelloMessageEqualTo(expectedText: string) {
+        const actualText = await this.helloUsername().innerText();
+        expect(actualText).toEqual(expectedText);
     }
 
-    public async isCompanyNameEqual(text: string) {
-        return expect(await this.companyNameHeading().innerText()).toEqual(text);
+    public async assertCompanyNameEqualTo(expectedText: string) {
+        const actualText = await this.companyNameHeading().innerText();
+        expect(actualText).toEqual(expectedText);
     }
 
 
