@@ -131,7 +131,7 @@ test.afterEach(async ({ page }, testInfo) => {
     const projectName = testInfo.project.name;
 
     // Extract short identifiers (e.g., SU-0001, SI-0001)
-    const shortIdMatch = testInfo.title.match(/^\b([A-Z]{2}-\d{4})\b/);
+    const shortIdMatch = testInfo.title.match(/#?([A-Z]{2}-\d{4})/);
     const shortId = shortIdMatch ? shortIdMatch[1] : testInfo.title.split('(')[0].trim().replace(/[\s-]/g, '_');
 
     // Sanitize the test title and project name
@@ -149,6 +149,5 @@ test.afterEach(async ({ page }, testInfo) => {
         contentType: `image/png`,
     })
 })
-
 
 export const expect = test.expect;
