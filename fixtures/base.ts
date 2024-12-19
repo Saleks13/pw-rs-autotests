@@ -12,6 +12,7 @@ import OverviewGeneral from "../pages/overview/overviewGeneral.page";
 
 import FooterPage from "../pages/page components/footer.component";
 import HeaderPage from "../pages/page components/header.component";
+import { Utils } from "../utils/utils";
 
 type MyFixtures = {
     // pages
@@ -137,8 +138,11 @@ test.afterEach(async ({ page }, testInfo) => {
     // Sanitize the test title and project name
     const sanitizedProjectName = projectName.replace(/[\s-]/g, '_').replace(/[^\w]/g, '');
 
+    const currentDate = Utils.getCurrentDateInFormat();
+    
     // Construct the screenshot path
-    const screenshotPath = `.screenshots/${sanitizedProjectName}_${shortId}.png`;
+    //const screenshotPath = `.screenshots/${sanitizedProjectName}_${shortId}.png`;
+    const screenshotPath = `.screenshots/${currentDate}.png`;
 
     // Capture screenshot
     await page.screenshot({ path: screenshotPath });
