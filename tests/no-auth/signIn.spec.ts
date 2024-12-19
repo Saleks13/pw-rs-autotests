@@ -1,4 +1,4 @@
-import { test } from "../../fixtures/base";
+import { test } from "../../fixtures/onboarding.fixture";
 
 test("#SI-0001 - Sign in with single organization user. @smoke", async ({ signInPage, overviewGeneral }) => {
 

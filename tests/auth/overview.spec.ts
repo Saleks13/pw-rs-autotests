@@ -1,4 +1,4 @@
-import { test } from "../../fixtures/base";
+import { test } from "../../fixtures/base.fixture";
 
 test("#OV-0001 - Check overview page loaded after sign in.", async ({ overviewGeneral }) => {
 

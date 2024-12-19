@@ -1,4 +1,5 @@
-import { test as base } from "@playwright/test";
+import { test as base } from './base.fixture';
+
 import SignInPage from "../pages/onboarding/signIn.page";
 import Wizard1UserInfoPage from "../pages/onboarding/wizard.1userInfo.page";
 import Wizard2RequiredDocsPage from "../pages/onboarding/wizard.2requiredDocs.page";
@@ -7,15 +8,8 @@ import Wizard4FinancialInfoPage from "../pages/onboarding/wizard.4financialInfo.
 import Wizard5MobilePhonePage from "../pages/onboarding/wizard.5mobilePhone.page";
 import Wizard6FinalStepPage from "../pages/onboarding/wizard.6finalStep.page";
 
-import OverviewHello from "../pages/welcome/overviewHello.page";
-import OverviewGeneral from "../pages/overview/overviewGeneral.page";
-
-import FooterPage from "../pages/page components/footer.component";
-import HeaderPage from "../pages/page components/header.component";
-import { Utils } from "../utils/utils";
-
-type MyFixtures = {
-    // pages
+// Define the specific fixture types for the onboarding module
+type OnboardingFixtures = {
     signInPage: SignInPage;
     wizard1UserInfoPage: Wizard1UserInfoPage;
     wizard2RequiredDocsPage: Wizard2RequiredDocsPage;
@@ -23,15 +17,9 @@ type MyFixtures = {
     wizard4FinancialInfoPage: Wizard4FinancialInfoPage;
     wizard5MobilePhonePage: Wizard5MobilePhonePage;
     wizard6FinalStepPage: Wizard6FinalStepPage;
-    overviewHello: OverviewHello;
-    overviewGeneral: OverviewGeneral;
-    // components
-    headerPage: HeaderPage;
-    footerPage: FooterPage;
-}
+};
 
-export const test = base.extend<MyFixtures>({
-
+export const test = base.extend({
     signInPage: async ({ page }, use) => {
         try {
             await use(new SignInPage(page));
@@ -87,72 +75,5 @@ export const test = base.extend<MyFixtures>({
             console.error("Error initializing Wizard6FinalStepPage:", error)
             throw error;
         }
-    },
-    overviewHello: async ({ page }, use) => {
-        try {
-            await use(new OverviewHello(page));
-        } catch (error) {
-            console.error("Error initializing OverviewHello:", error)
-            throw error;
-        }
-    },
-    overviewGeneral: async ({ page }, use) => {
-        try {
-            await use(new OverviewGeneral(page));
-        } catch (error) {
-            console.error("Error initializing OverviewGeneral:", error)
-            throw error;
-        }
-    },
-    headerPage: async ({ page }, use) => {
-        try {
-            await use(new HeaderPage(page));
-        } catch (error) {
-            console.error("Error initializing HeaderPage:", error)
-            throw error;
-        }
-    },
-    footerPage: async ({ page }, use) => {
-        try {
-            await use(new FooterPage(page));
-        } catch (error) {
-            console.error("Error initializing FooterPage:", error)
-            throw error;
-        }
     }
 })
-
-test.beforeAll(async ({ baseURL }) => {
-    console.log("BASE_URL =", baseURL);
-});
-
-test.afterEach(async ({ page }, testInfo) => {
-
-    // Access ptoject name 
-    const projectName = testInfo.project.name;
-
-    // Extract short identifiers (e.g., SU-0001, SI-0001)
-    const shortIdMatch = testInfo.title.match(/#?([A-Z]{2}-\d{4})/);
-    const shortId = shortIdMatch ? shortIdMatch[1] : testInfo.title.split('(')[0].trim().replace(/[\s-]/g, '_');
-
-    // Sanitize the test title and project name
-    const sanitizedProjectName = projectName.replace(/[\s-]/g, '_').replace(/[^\w]/g, '');
-
-    const currentDate = Utils.getCurrentDateInFormat();
-    
-    // Construct the screenshot path
-    //const screenshotPath = `.screenshots/${sanitizedProjectName}_${shortId}.png`;
-    const screenshotPath = `.screenshots/${currentDate}.png`;
-
-    // Capture screenshot
-    await page.screenshot({ path: screenshotPath });
-
-    // Attach screenshot to testInfo
-    testInfo.attach('screenshot', {
-        path: screenshotPath,
-        contentType: `image/png`,
-    })
-    console.log(testInfo.title , " = " , screenshotPath);
-})
-
-export const expect = test.expect;

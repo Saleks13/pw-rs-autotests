@@ -7,7 +7,7 @@ export default class FooterPage {
         this.page = page;
     }
 
-    footerText = () => this.page.locator("#footer p");
+    footerText = () => this.page.locator("#footer");
 
     //Check footer contains text
     public async isFooterContainsText(text: string) {

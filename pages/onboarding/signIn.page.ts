@@ -11,9 +11,9 @@ export default class SignInPage
     constructor(page: Page) {
         this.page = page;
         this.footer = new FooterPage(page);
-        //this.goto();
     }
 
+    // go to sign in page 
     public async goto()
     {
         await this.page.goto("/");

@@ -1,4 +1,4 @@
-import { test as setup } from '../fixtures/base';
+import { test as setup } from '../fixtures/onboarding.fixture';
 import path from "path";
 
 const authFile = path.join(__dirname, '../.auth/user.json');

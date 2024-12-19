@@ -1,4 +1,4 @@
-import { test } from "../../fixtures/base";
+import { test } from "../../fixtures/onboarding.fixture";
 import { TestDataLoader } from "../../testData/testDataLoader";
 import { LocalizationLoader } from "../../utils/localizationLoader";
 import { Utils } from "../../utils/utils";

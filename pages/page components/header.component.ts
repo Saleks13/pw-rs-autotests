@@ -13,10 +13,8 @@ export default class HeaderPage {
     helpMenuDropdownButton = () => this.page.locator(".btn-topNav");
     helpCenterButton = () => this.page.locator("#HelpCenter");
     contactSupportButton = () => this.page.locator(".dropdown-menutopNav a[href='/Request/Add']");
-    logoutButton = () => this.page.locator("#LogOffLink");    
-
+    logoutButton = () => this.page.locator("#LogOffLink");
     
-
     //Check logo visible
     public async isLogoVisible() {
         return expect(await this.logoImg().isVisible());
