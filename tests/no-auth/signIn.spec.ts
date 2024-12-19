@@ -12,5 +12,4 @@ test("#SI-0001 - Sign in with single organization user. @smoke", async ({ signIn
     await signInPage.clickLoginButton();
     // check overview header visible 
     await overviewGeneral.assertPageTitleVisible();
-
 })
