@@ -3,8 +3,9 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-.env.prod
-.env.test
+.env*
+!.env.example
 .DS_Store
 /.screenshots
 /.auth
+.claude/settings.local.json

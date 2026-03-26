@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import FooterPage from "../page components/footer.component";
+import FooterPage from "../page-components/footer.component";
 
 
 export default class SignInPage 
@@ -14,17 +14,20 @@ export default class SignInPage
     }
 
     // go to sign in page 
-    public async goto()
-    {
+    public async goto(): Promise<void> {
         await this.page.goto("/");
     }
 
-    // Locators 
-    usernameInputField = () => this.page.locator('#UserName');
-    usernameWarningMsg = () => this.page.getByText('E-Mail is required.');
+    // Locators
+    get pageHeader() {
+        return this.page.getByRole('heading', { name: 'Login' });
+    }
 
-    passwordInputField = () => this.page.locator('#Password');
-    passwordWarningMsg = () => this.page.getByText('Password is required.');
+    usernameInputField = () => this.page.getByRole('textbox', { name: 'E-Mail' });
+    usernameWarningMsg = () => this.page.locator("//span[@class='field-validation-error'][1]");
+
+    passwordInputField = () => this.page.getByRole('textbox', { name: 'Password' });
+    passwordWarningMsg = () => this.page.locator("//span[@class='field-validation-error'][2]");
 
     loginButton = () => this.page.locator('#btnLogin');
 
@@ -33,6 +36,10 @@ export default class SignInPage
 
     mainWarningMessage = () => this.page.locator("div.login_main span");   
 
+    // is loaded
+    public async isLoaded(): Promise<void> {
+        await expect(this.pageHeader).toBeVisible();
+    }
 
     // Actions 
 

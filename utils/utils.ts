@@ -29,6 +29,7 @@ class Utils {
 
   static newRandomUser() {
     const validUser = TestDataLoader.getValidUser();
+    const reg = TestDataLoader.getRegistrationDefaults();
     return {
       email: faker.internet.email(),
       firstName: validUser.FIRSTNAME,
@@ -37,16 +38,16 @@ class Utils {
       companyName: this.getUniqueCompanyName(),
       streetAddress: TestDataLoader.getStreetAddress(),
       zipCode: TestDataLoader.getZipCode(),
-      legalForm: LegalForm.AG,
+      legalForm: LegalForm[reg.LEGAL_FORM as keyof typeof LegalForm],
       city: TestDataLoader.getCity(),
       secondaryAddress: TestDataLoader.getSecondaryAddress(),
       telephone: TestDataLoader.getTelephone(),
-      financialYearStartDay: 13,
-      financialYearStartMonth: 1,
-      vatType: VatType.Effektiv,
-      vatValue: "000000000",
-      phoneCode: "076",
-      phoneNumber: "00000000"
+      financialYearStartDay: reg.FINANCIAL_YEAR_START_DAY,
+      financialYearStartMonth: reg.FINANCIAL_YEAR_START_MONTH,
+      vatType: VatType[reg.VAT_TYPE as keyof typeof VatType],
+      vatValue: reg.VAT_VALUE,
+      phoneCode: reg.PHONE_CODE,
+      phoneNumber: reg.PHONE_NUMBER
     };
   }
 }

@@ -8,18 +8,18 @@ test("#SU-0001 - Sign up page opened. @smoke", async ({ signInPage, wizard1UserI
 
     // go to sign in page
     await signInPage.goto();
+    // make aure sign in page is loaded
+    await signInPage.isLoaded();
     // click sign up button to start the wizard
     await signInPage.clickSignUpButton();
-
     // select language
     await wizard1UserInfoPage.selectLanguage();
-
     // check first wizard page title shown
     await wizard1UserInfoPage.assertPageTitleIsVisible();
 
 })
 
-test("#SU-0002 - Attempt to Sign Up with existing email.", async ({ page, signInPage, wizard1UserInfoPage }) => {
+test("#SU-0002 - Attempt to Sign Up with existing email.", async ({ signInPage, wizard1UserInfoPage }) => {
 
     // new user data
     const user = Utils.newRandomUser();
@@ -129,7 +129,7 @@ test("#SU-0004 - Sign up with new (random) credentials and new random organizati
         await wizard3CompanyInfoPage.fillCompanyName(user.companyName);
         await wizard3CompanyInfoPage.fillStreet(user.streetAddress);
         await wizard3CompanyInfoPage.fillZipCode(user.zipCode);
-        await wizard3CompanyInfoPage.selectLefalForm(user.legalForm);
+        await wizard3CompanyInfoPage.selectLegalForm(user.legalForm);
         await wizard3CompanyInfoPage.fillCity(user.city);
         await wizard3CompanyInfoPage.fillSecondaryAddress(user.secondaryAddress);
         await wizard3CompanyInfoPage.fillTelephone(user.telephone);

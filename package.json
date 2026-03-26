@@ -2,7 +2,16 @@
   "name": "pw-test-project",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:ui": "npx playwright test --ui",
+    "test:auth": "npx playwright test --project=chromium-auth",
+    "test:no-auth": "npx playwright test --project=chromium-no-auth",
+    "test:report": "npx playwright show-report",
+    "test:prod": "ENV=prod npx playwright test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

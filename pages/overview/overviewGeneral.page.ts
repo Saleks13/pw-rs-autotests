@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test";
-import FooterPage from "../page components/footer.component";
+import FooterPage from "../page-components/footer.component";
 
 export default class OverviewGeneral
 {
@@ -17,14 +17,14 @@ export default class OverviewGeneral
     }
 
     // Locators 
-    pageTitle = () => this.page.locator('#wrapper1 h5');
+    pageHeader = () => this.page.locator('#wrapper1 h5');
     companyNameHeading = () => this.page.locator('.CompanyName');
 
     // Actions
 
     // Assertions
     public async assertPageTitleVisible() {
-        await expect(this.pageTitle()).toBeVisible();
+        await expect(this.pageHeader()).toBeVisible();
     }
 
     public async isCompanyNameEqual(text: string) {

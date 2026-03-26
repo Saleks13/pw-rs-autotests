@@ -1,16 +1,16 @@
 import { test as base } from "@playwright/test";
 
-import OverviewHello from "../pages/overview/overviewHello.page";
+import HelloPage from "../pages/welcome/hello.page";
 import OverviewGeneral from "../pages/overview/overviewGeneral.page";
-import FooterPage from "../pages/page components/footer.component";
-import HeaderPage from "../pages/page components/header.component";
-import MainNavBar from "../pages/page components/mainNavBar.component";
+import FooterPage from "../pages/page-components/footer.component";
+import HeaderPage from "../pages/page-components/header.component";
+import MainNavBar from "../pages/page-components/mainNavBar.component";
 
 import { Utils } from "../utils/utils";
 
 type SharedFixtures = {
     // pages
-    overviewHello: OverviewHello;
+    overviewHello: HelloPage;
     overviewGeneral: OverviewGeneral;
     // components
     headerPage: HeaderPage;
@@ -21,10 +21,10 @@ type SharedFixtures = {
 }
 
 export const test = base.extend<SharedFixtures>({
-    
+
     overviewHello: async ({ page }, use) => {
         try {
-            await use(new OverviewHello(page));
+            await use(new HelloPage(page));
         } catch (error) {
             console.error("Error initializing OverviewHello:", error)
             throw error;
@@ -53,6 +53,14 @@ export const test = base.extend<SharedFixtures>({
             console.error("Error initializing FooterPage:", error)
             throw error;
         }
+    },
+    mainNavBar: async ({ page }, use) => {
+        try {
+            await use(new MainNavBar(page));
+        } catch (error) {
+            console.error("Error initializing MainNavBar:", error)
+            throw error;
+        }
     }
 })
 
@@ -73,7 +81,7 @@ test.afterEach(async ({ page }, testInfo) => {
     const sanitizedProjectName = projectName.replace(/[\s-]/g, '_').replace(/[^\w]/g, '');
 
     const currentDate = Utils.getCurrentDateInFormat();
-    
+
     // Construct the screenshot path
     const screenshotPath = `.screenshots/${sanitizedProjectName}_${shortId}_${currentDate}.png`;
 

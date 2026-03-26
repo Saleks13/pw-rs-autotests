@@ -8,7 +8,7 @@ type EnvData = Config[Environment];
 
 export class TestDataLoader {
   private static getEnvData(): EnvData {
-    const data = testData[ENV];
+    const data = testData[ENV as Environment];
     if (!data) {
       throw new Error(`Test data for environment "${ENV}" is not defined.`);
     }
@@ -20,16 +20,16 @@ export class TestDataLoader {
     return this.getEnvData().VALID;
   }
 
+  static getRegistrationDefaults() {
+    return this.getEnvData().REGISTRATION;
+  }
+
   static getInvalidUser() {
     return this.getEnvData().INVALID;
   }
 
   static getCompanyPrefix() {
     return this.getEnvData().COMPANYPREFIX;
-  }
-
-  static getAppUrl() {
-    return this.getEnvData().BASE_URL; 
   }
 
   static getExistingCompany() {

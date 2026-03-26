@@ -3,5 +3,6 @@
     "invalidEmail": "Die angegebene E-Mail ist ungültig.",
     "termsNotAccepted": "Sie müssen die Allgemeinen Geschäftsbedingungen akzeptieren.",
     "companyExists": "The Company Name already exists. Please enter a different Company Name",
-    "helloText": "Hallo, {{firstName}} {{lastName}}"
+    "helloText": "Hallo, {{firstName}} {{lastName}}",
+    "bankingPageHeader": "Bankkonten"
 }

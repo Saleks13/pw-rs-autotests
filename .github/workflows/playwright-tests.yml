@@ -3,7 +3,7 @@ name: Daily Playwright Tests
 on:
   push:
     branches:
-      -main
+      - main
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
@@ -26,19 +26,9 @@ jobs:
         run: npm install
 
       - name: Install Playwright dependencies
-        run: npx playwright install
+        run: npx playwright install --with-deps chromium
 
       # Set environment variables from secrets
-      - name: Set environment variables
-        env:
-          USERS_USERSINGLEORG_EMAIL: ${{ secrets.USERS_USERSINGLEORG_EMAIL }}
-          USERS_USERSINGLEORG_PASSWORD: ${{ secrets.USERS_USERSINGLEORG_PASSWORD }}
-          USERS_USERMULTIORG_EMAIL: ${{ secrets.USERS_USERMULTIORG_EMAIL }}
-          USERS_USERMULTIORG_PASSWORD: ${{ secrets.USERS_USERMULTIORG_PASSWORD }}
-          LOCALE: ${{ secrets.LOCALE }}
-        run: echo "Environment variables set."
-
-      # Run Playwright tests
       - name: Run Playwright tests
         env:
           USERS_USERSINGLEORG_EMAIL: ${{ secrets.USERS_USERSINGLEORG_EMAIL }}
@@ -71,4 +61,4 @@ jobs:
           body: |
             The Playwright test report is available at:
             https://saleks13.github.io/pw-rs-autotests/index.html
-          to: saleks.v@gmail.com
+          to: ${{ secrets.REPORT_EMAIL }}

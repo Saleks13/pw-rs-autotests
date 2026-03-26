@@ -1,7 +1,7 @@
 import { Page, expect } from "@playwright/test";
-import FooterPage from "../page components/footer.component";
+import FooterPage from "../page-components/footer.component";
 
-export default class OverviewHello
+export default class HelloPage
 {
     page: Page;
     footer: FooterPage;

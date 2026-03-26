@@ -3,11 +3,13 @@ import enMessages from '../localization/en.json';
 import deMessages from '../localization/de.json';
 
 export class LocalizationLoader {
+  // store message for each language
   private static messages: Record<string, Record<string, string>> = {
     EN: enMessages,
     DE: deMessages,
   };
 
+  // Retrieve messages for a specific language
   private static getMessages(lang: keyof typeof LocalizationLoader.messages) {
     const messages = LocalizationLoader.messages[lang];
     if (!messages) {
@@ -16,14 +18,13 @@ export class LocalizationLoader {
     return messages;
   }
 
-  private static determineLanguage(): keyof typeof LocalizationLoader.messages {
-    const locale = process.env.LOCALE || 'EN';
-
+  // Determine the active language
+  public static determineLanguage(): keyof typeof LocalizationLoader.messages {
+    const locale = process.env.LOCALE || 'EN';    
     if (!locale) {
       console.warn(`Locale is not defined. Falling back to default language: EN`);
       return 'EN';
     }
-
     const localization = locale.toUpperCase();
     if (LocalizationLoader.messages.hasOwnProperty(localization)) {
       return localization as keyof typeof LocalizationLoader.messages;
@@ -32,7 +33,7 @@ export class LocalizationLoader {
       return 'EN';
     }
   }
-
+  // Get a message by its key
   static getMessage(key: string) {
     const lang = this.determineLanguage();
     const messages = this.getMessages(lang);
@@ -43,22 +44,22 @@ export class LocalizationLoader {
     return message;
   }
 
+  // Format a message by replacing placeholders with values
   static formatMessage(
     key: string,
     variables: Record<string, string>
   ) {
-    const lang = this.determineLanguage();
-    let message = this.getMessage(key);
+  //const lang = this.determineLanguage();
+  let message = this.getMessage(key);
 
-    Object.entries(variables).forEach(([placeholder, value]) => {
-      if (typeof value !== 'string') {
-        throw new Error(`Variable value for placeholder "${placeholder}" must be a string.`);
-      }
-      message = message.replace(`{{${placeholder}}}`, value);
-    });
-
-    return message;
-  }
+  Object.entries(variables).forEach(([placeholder, value]) => {
+    if (typeof value !== 'string') {
+      throw new Error(`Variable value for placeholder "${placeholder}" must be a string.`);
+    }
+    message = message.replace(`{{${placeholder}}}`, value);
+  });
+  return message;
+}
 
   static getHelloText(firstName: string, lastName: string) {
     return this.formatMessage('helloText', { firstName, lastName });

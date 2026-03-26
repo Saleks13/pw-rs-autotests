@@ -41,7 +41,7 @@ export default class Wizard3CompanyInfoPage
     }
 
     //Legal form
-    public async selectLefalForm(option: LegalForm) {
+    public async selectLegalForm(option: LegalForm) {
         await this.legalFormDropdown().selectOption(option);
     }
 

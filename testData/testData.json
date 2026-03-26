@@ -1,47 +1,62 @@
 {
     "test": {
       "COMPANYPREFIX": "@satest-",
-      "BASE_URL": "https://apps.marka-software.company/",
       "EXISTINGCOMPANY": "@satest_dont_delete",
       "STREETADDRESS": "Bahnhofstrasse 123",
       "ZIPCODE": "9008",
       "CITY": "Bern",
       "SECONDARYADDRESS": "Unit 123",
       "TELEPHONE": "888 888 88 88",
+      "REGISTRATION": {
+        "LEGAL_FORM": "AG",
+        "VAT_TYPE": "Effektiv",
+        "VAT_VALUE": "000000000",
+        "PHONE_CODE": "076",
+        "PHONE_NUMBER": "00000000",
+        "FINANCIAL_YEAR_START_DAY": 1,
+        "FINANCIAL_YEAR_START_MONTH": 1
+      },
       "VALID": {
         "FIRSTNAME": "John",
         "LASTNAME": "Malkovich",
         "EMAIL": "Valid.email@example.com",
-        "PASSWORD": "123456Ab!"          
-        },
+        "PASSWORD": "123456Ab!"
+      },
       "INVALID": {
         "FIRSTNAME": "InvalidName123",
         "LASTNAME": "InvalidLastName!@#",
         "EMAIL": "invalid.email@example",
-        "PASSWORD": "123"          
-        }      
+        "PASSWORD": "123"
+      }
     },
     "prod": {
       "COMPANYPREFIX": "@saprod-",
-      "BASE_URL": "https://app.reststep.ch/",
       "EXISTINGCOMPANY": "@sergprod09102024 ",
       "STREETADDRESS": "Bahnhofstrasse 123",
       "ZIPCODE": "9008",
       "CITY": "Bern",
       "SECONDARYADDRESS": "Unit 123",
       "TELEPHONE": "888 888 88 88",
+      "REGISTRATION": {
+        "LEGAL_FORM": "AG",
+        "VAT_TYPE": "Effektiv",
+        "VAT_VALUE": "000000000",
+        "PHONE_CODE": "076",
+        "PHONE_NUMBER": "00000000",
+        "FINANCIAL_YEAR_START_DAY": 1,
+        "FINANCIAL_YEAR_START_MONTH": 1
+      },
       "VALID": {
         "FIRSTNAME": "Peter",
         "LASTNAME": "Griffin",
         "EMAIL": "Valid.email@example.com",
-        "PASSWORD": "123456Ab!"          
-        },
+        "PASSWORD": "123456Ab!"
+      },
       "INVALID": {
         "FIRSTNAME": "InvalidName123",
         "LASTNAME": "InvalidLastName!@#",
         "EMAIL": "invalid.email@example",
-        "PASSWORD": "123"          
-        }  
+        "PASSWORD": "123"
+      }
     }
   }
-  

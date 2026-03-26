@@ -19,7 +19,7 @@ type OnboardingFixtures = {
     wizard6FinalStepPage: Wizard6FinalStepPage;
 };
 
-export const test = base.extend({
+export const test = base.extend<OnboardingFixtures>({
     signInPage: async ({ page }, use) => {
         try {
             await use(new SignInPage(page));
@@ -77,3 +77,5 @@ export const test = base.extend({
         }
     }
 })
+
+export const expect = test.expect;
