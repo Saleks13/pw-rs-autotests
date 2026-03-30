@@ -7,11 +7,23 @@ on:
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test against'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+          - test
+          - prod
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: .env.test 
+    environment: .env.${{ inputs.environment || 'test' }}
+
+    env:
+      TARGET_ENV: ${{ inputs.environment || 'test' }}
 
     steps:
       - name: Checkout code
@@ -36,29 +48,30 @@ jobs:
           USERS_USERMULTIORG_EMAIL: ${{ secrets.USERS_USERMULTIORG_EMAIL }}
           USERS_USERMULTIORG_PASSWORD: ${{ secrets.USERS_USERMULTIORG_PASSWORD }}
           LOCALE: ${{ secrets.LOCALE }}
-        run: ENV=test npx playwright test
+        run: ENV=${{ env.TARGET_ENV }} npx playwright test
 
       - name: Parse test results
         if: always()
         id: results
         run: |
+          ENV_LABEL=$(echo "$TARGET_ENV" | sed 's/^./\U&/')
           if [ -f test-results.json ]; then
-            PASSED=$(jq '[.suites[].suites[]?.specs[]?.tests[]? | select(.status == "expected")] | length' test-results.json)
-            FAILED=$(jq '[.suites[].suites[]?.specs[]?.tests[]? | select(.status == "unexpected")] | length' test-results.json)
-            SKIPPED=$(jq '[.suites[].suites[]?.specs[]?.tests[]? | select(.status == "skipped")] | length' test-results.json)
+            PASSED=$(jq '.stats.expected' test-results.json)
+            FAILED=$(jq '.stats.unexpected' test-results.json)
+            SKIPPED=$(jq '.stats.skipped' test-results.json)
             TOTAL=$((PASSED + FAILED + SKIPPED))
 
             if [ "$FAILED" -eq 0 ]; then
-              echo "subject=✅ All $TOTAL tests passed on Test server" >> $GITHUB_OUTPUT
+              echo "subject=✅ All $TOTAL tests passed on $ENV_LABEL server" >> $GITHUB_OUTPUT
             else
-              echo "subject=❌ $PASSED out of $TOTAL tests passed on Test server" >> $GITHUB_OUTPUT
+              echo "subject=❌ $PASSED out of $TOTAL tests passed on $ENV_LABEL server" >> $GITHUB_OUTPUT
             fi
             echo "passed=$PASSED" >> $GITHUB_OUTPUT
             echo "failed=$FAILED" >> $GITHUB_OUTPUT
             echo "skipped=$SKIPPED" >> $GITHUB_OUTPUT
             echo "total=$TOTAL" >> $GITHUB_OUTPUT
           else
-            echo "subject=⚠️ Test results unavailable on Test server" >> $GITHUB_OUTPUT
+            echo "subject=⚠️ Test results unavailable on $ENV_LABEL server" >> $GITHUB_OUTPUT
             echo "passed=0" >> $GITHUB_OUTPUT
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "skipped=0" >> $GITHUB_OUTPUT
