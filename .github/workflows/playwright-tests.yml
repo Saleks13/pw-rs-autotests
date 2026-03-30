@@ -45,11 +45,13 @@ jobs:
           name: playwright-report
           path: playwright-report/
       - name: Deploy to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./playwright-report
       - name: Send Email with Report Link
+        if: always()
         uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.gmail.com
