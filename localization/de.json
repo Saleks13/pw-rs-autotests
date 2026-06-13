@@ -4,5 +4,9 @@
     "termsNotAccepted": "Sie müssen die Allgemeinen Geschäftsbedingungen akzeptieren.",
     "companyExists": "The Company Name already exists. Please enter a different Company Name",
     "helloText": "Hallo, {{firstName}} {{lastName}}",
-    "bankingPageHeader": "Bankkonten"
+    "bankingPageHeader": "Bankkonten",
+    "signInEmailRequired": "E-Mail ist erforderlich.",
+    "signInPasswordRequired": "Passwort ist erforderlich.",
+    "signInInvalidCredentials": "Die E-Mail oder das Passwort ist ungültig. Bitte geben Sie eine gültige E-Mail oder ein gültiges Passwort ein.",
+    "signInIncorrectPassword": "Die E-Mail oder das Passwort ist falsch. Bitte versuchen Sie es erneut."
 }

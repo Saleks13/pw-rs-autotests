@@ -4,5 +4,9 @@
     "termsNotAccepted": "You must accept the terms and conditions.",
     "companyExists": "The Company Name already exists. Please enter a different Company Name",
     "helloText": "Hello, {{firstName}} {{lastName}}",
-    "bankingPageHeader": "Bank Accounts"  
+    "bankingPageHeader": "Bank Accounts",
+    "signInEmailRequired": "E-Mail is required.",
+    "signInPasswordRequired": "Password is required.",
+    "signInInvalidCredentials": "The e-mail or password is invalid. Please enter a valid e-mail or password.",
+    "signInIncorrectPassword": "The E-Mail or Password is incorrect. Please try again."
 }
