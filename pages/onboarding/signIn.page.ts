@@ -24,10 +24,10 @@ export default class SignInPage
     }
 
     usernameInputField = () => this.page.getByRole('textbox', { name: 'E-Mail' });
-    usernameWarningMsg = () => this.page.locator("//span[@class='field-validation-error'][1]");
+    usernameWarningMsg = () => this.page.locator('#UserName + div.clear + span.field-validation-error');
 
     passwordInputField = () => this.page.getByRole('textbox', { name: 'Password' });
-    passwordWarningMsg = () => this.page.locator("//span[@class='field-validation-error'][2]");
+    passwordWarningMsg = () => this.page.locator('#Password + div.clear + span.field-validation-error');
 
     loginButton = () => this.page.locator('#btnLogin');
 
