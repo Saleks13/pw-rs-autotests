@@ -10,17 +10,20 @@
     "test:auth": "npx playwright test --project=chromium-auth",
     "test:no-auth": "npx playwright test --project=chromium-no-auth",
     "test:report": "npx playwright show-report",
-    "test:prod": "ENV=prod npx playwright test"
+    "test:prod": "ENV=prod npx playwright test",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.2",
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.48.2",
+    "@playwright/cli": "^0.1.5",
+    "@playwright/test": "1.59.1",
     "@types/node": "^20.17.6",
-    "typescript": "^5.7.2"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "builder-pattern": "^2.2.0",

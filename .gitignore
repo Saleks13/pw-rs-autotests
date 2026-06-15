@@ -9,3 +9,6 @@ node_modules/
 /.screenshots
 /.auth
 .claude/settings.local.json
+.playwright-cli/
+.playwright-mcp/
+test-results.json
