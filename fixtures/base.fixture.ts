@@ -1,4 +1,5 @@
 import { test as base } from "@playwright/test";
+import { mkdir } from "fs/promises";
 
 import HelloPage from "../pages/welcome/hello.page";
 import OverviewGeneral from "../pages/overview/overviewGeneral.page";
@@ -85,14 +86,31 @@ test.afterEach(async ({ page }, testInfo) => {
     // Construct the screenshot path
     const screenshotPath = `.screenshots/${sanitizedProjectName}_${shortId}_${currentDate}.png`;
 
-    // Capture screenshot
-    await page.screenshot({ path: screenshotPath });
+    await mkdir(".screenshots", { recursive: true });
 
-    // Attach screenshot to testInfo
-    testInfo.attach('screenshot', {
-        path: screenshotPath,
-        contentType: `image/png`,
-    })
+    if (page.isClosed()) {
+        return;
+    }
+
+    try {
+        // Capture screenshot
+        await page.screenshot({ path: screenshotPath });
+
+        // Attach screenshot to testInfo
+        await testInfo.attach('screenshot', {
+            path: screenshotPath,
+            contentType: `image/png`,
+        });
+    } catch (error) {
+        const errorMessage = error instanceof Error ? (error.stack ?? error.message) : String(error);
+
+        await testInfo.attach("screenshot-error", {
+            body: Buffer.from(`Failed to capture screenshot.\n${errorMessage}`, "utf-8"),
+            contentType: "text/plain",
+        });
+
+        console.warn(`Failed to capture screenshot for "${testInfo.title}"`, error);
+    }
     //console.log(testInfo.title , " = " , screenshotPath);
 })
 

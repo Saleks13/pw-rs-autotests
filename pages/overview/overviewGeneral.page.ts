@@ -11,14 +11,20 @@ export default class OverviewGeneral
         this.footer = new FooterPage(page);
     }
 
-    public async goto()
-    {
+    public async goto() {
         await this.page.goto("/Overview/Overview");
+        await this.waitForLoaded();
     }
 
-    // Locators 
+    // Locators
     pageHeader = () => this.page.locator('#wrapper1 h5');
     companyNameHeading = () => this.page.locator('.CompanyName');
+    ajaxLoader = () => this.page.locator('img.loaderTrigger');
+
+    // Actions
+    public async waitForLoaded() {
+        await this.page.waitForSelector('img.loaderTrigger', { state: 'hidden' });
+    }
 
     // Actions
 

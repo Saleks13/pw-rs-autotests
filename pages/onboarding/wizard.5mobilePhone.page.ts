@@ -23,7 +23,7 @@ export default class Wizard5MobilePhonePage {
                 `Invalid phone code: ${String(phoneCode)}. Allowed values are: ${Object.keys(PhoneCodes).join(', ')}`
             );
         }
-        const optionValue = PhoneCodes[phoneCode];
+        const optionValue = PhoneCodes[phoneCode as keyof typeof PhoneCodes];
         await this.phoneCodeDropdown().selectOption({ value: optionValue});
     }
    
